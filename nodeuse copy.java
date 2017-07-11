@@ -147,6 +147,7 @@ public static node takeInput() {
 			//head=reversekgroup(head, 3);
 			print(head);
 			System.out.println();
+			System.out.println();
 	}
 
 }

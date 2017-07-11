@@ -41,7 +41,6 @@ void stringCompression(char input[],int length)
 int main()
 {
   char c[20];
-  cin.getline(c,20);
   int length;
   length=strlen(c);
   stringCompression(c,length);

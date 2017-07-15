@@ -3,24 +3,24 @@ package l16;
 import java.util.HashMap;
 
 public class MISCLLLANEOUS {
-//	public static int maxSum(int a[],int output[], int startIndex) {
-//		if (startIndex == a.length) {
-//			return 0;
-//		}
-//		
-//		if (startIndex == a.length - 1) {
-//			return Math.max(0, a[startIndex]);
-//		}
-//		if(output[startIndex]>0)
-//		{
-//			return output[startIndex];
-//		}
-//		int option1 = maxSum(a, output,startIndex + 1);
-//		int option2 = maxSum(a, output,startIndex + 2) + a[startIndex];
-//		output[startIndex]=Math.max(option1, option2);
-//		return Math.max(option1, option2);
-//		
-//	}
+	public static int maxSum(int a[],int output[], int startIndex) {
+		if (startIndex == a.length) {
+			return 0;
+		}
+		
+		if (startIndex == a.length - 1) {
+			return Math.max(0, a[startIndex]);
+		}
+		if(output[startIndex]>0)
+		{
+			return output[startIndex];
+		}
+		int option1 = maxSum(a, output,startIndex + 1);
+		int option2 = maxSum(a, output,startIndex + 2) + a[startIndex];
+		output[startIndex]=Math.max(option1, option2);
+		return Math.max(option1, option2);
+		
+	}
 //	public static int maxSum1(int a[], int startIndex) {
 //		if (startIndex == a.length) {
 //			return 0;

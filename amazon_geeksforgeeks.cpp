@@ -43,8 +43,7 @@ int main()
 
               i=k+1;
            }
-           // cout<<times;
-           // cout<<endl;
+     
            if(times!=0)
            {
            times=times+2;

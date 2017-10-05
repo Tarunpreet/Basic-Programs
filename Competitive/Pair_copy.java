@@ -1,4 +1,4 @@
-package l15;
+
 
 public class Pair<T, V> {
 	private T first;

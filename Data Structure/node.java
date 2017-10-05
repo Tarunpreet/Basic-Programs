@@ -1,14 +1,11 @@
-package node;
+package l15;
 
-public class node {
+public class Node<T> {
+	public T data;
+	public Node<T> next;
 	
-
-		public int data;
-		public node next;
-		
-		public node(int data) {
-			this.data = data;
-			this.next = null;
+	public Node(T data) {
+		this.data = data;
+		this.next = null;
 	}
-
 }

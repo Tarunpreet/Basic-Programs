@@ -1,153 +1,223 @@
-package node;
+package l15;
 
 import java.util.Scanner;
 
-public class nodeuse {
+public class NodeUse {
 
+	public static int lengthR(Node<Integer> head) {
+		if (head == null) {
+			return 0;
+		}
+		return 1 + lengthR(head.next);
+	}
 
-public static node takeInput() {
-			node head = null;
-			Scanner s = new Scanner(System.in);
-			int nextData = s.nextInt();
-			while (nextData != -1) {
-				node nextNode = new node(nextData);
-				if (head == null) {
-					head = nextNode;
+	public static int length(Node<Integer> head) {
+		int count = 0;
+		while (head != null) {
+			count++;
+			head = head.next;
+		}
+		return count;
+	}
+
+	public static Node<Integer> insertAtIR(Node<Integer> head, int position, int element) {
+		if (head == null && position > 0) {
+			return head;
+		}
+
+		if (position == 0) {
+			Node<Integer> newNode = new Node<Integer>(element);
+			newNode.next  = head;
+			return newNode;
+		}
+		Node<Integer> newNext = insertAtIR(head.next, position - 1, element);
+		head.next = newNext;
+		return head;
+	}
+
+	public static Node<Integer> insertAtI(Node<Integer> head, int position, int element) {
+		if (position == 0) {
+			Node<Integer> newNode = new Node<Integer>(element);
+			newNode.next  = head;
+			return newNode;
+		}
+
+		int l = length(head);
+		if (position > l) {
+			return head;
+		}
+
+		Node<Integer> prev = head;
+		int i = 1;
+		while (i < position) {
+			prev = prev.next;
+			i++;
+		}
+		Node<Integer> nextNode = new Node<Integer>(element);
+		Node<Integer> next = prev.next;
+		prev.next = nextNode;
+		nextNode.next = next;
+		return head;
+	}
+
+	public static Node<Integer> mid(Node<Integer> head) {
+		if (head == null) {
+			return null;
+		}
+		Node<Integer> fast = head.next;
+		Node<Integer> slow = head;
+		while (fast != null && fast.next != null) {
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		return slow;
+	}
+
+	public static Node<Integer> reverse4(Node<Integer> head)  {
+		Node<Integer> prev = null;
+		Node<Integer> current = head;
+		while (current != null) {
+			Node<Integer> temp = current.next;
+			current.next = prev;
+			prev = current;
+			current = temp;
+		}
+		return prev;
+	}
+
+	public static Node<Integer> reverse3(Node<Integer> head)  {
+		if (head == null || head.next == null) {
+			return head;
+		}
+
+		Node<Integer> smallHead = reverse3(head.next);
+		Node<Integer> smallTail = head.next;
+		smallTail.next = head;
+		head.next = null;
+		return smallHead;
+	}
+
+	public static Node<Integer> bubbleSort(Node<Integer> head) {
+		if (head == null) {
+			return head;
+		}
+		int n = length(head);
+		int i = 0;
+		while (i < n) {
+			Node<Integer> prev = null;
+			Node<Integer> current = head;
+			int j = 0;
+			while (j < n - i - 1) {
+				if (current.data <= current.next.data) {
+					prev = current;
+					current = current.next;
 				} else {
-					node tail = head;
-					while (tail.next != null) {
-						tail = tail.next;
+					//				Node<Integer> currentNext = current.next;
+					//				Node<Integer> currentNextNext = current.next.next;
+					//				prev.next = currentNext;
+					//				currentNext.next = current;
+					//				current.next = currentNextNext;
+					if (prev != null) {
+						prev.next = current.next;
+						current.next = current.next.next;
+						prev.next.next = current;
+						prev = prev.next;
+					} else {
+						Node<Integer> currentNext = current.next;
+						current.next = currentNext.next;
+						currentNext.next = current;
+						head = currentNext;
+						prev = currentNext;
 					}
-					tail.next = nextNode;
 				}
-				nextData = s.nextInt();
+				j++;
 			}
-			return head;
+			i++;
 		}
-		
-		public static void print(node head) {
-			while (head != null) {
-				System.out.print(head.data + "-->");
-				head = head.next;
-			}
-			System.out.println();
-			
-		}
-		public static int length(node head) {
-			int l=0;
-			while (head != null) {
-				l=l+1;
-				head = head.next;
-			}
-			System.out.println();
-			return l;
-		}
-		public static void printnth(node head,int num) {
-			int l=0;
-			while (l != num) {
-				head = head.next;
-				l=l++;
-			}
-			System.out.print(head.data);
-			
-		}
-		public static node insertati(node head,int pos,int num) {
-			node temp=head;
-			for(int i=0;i<pos-1;i++)
-			{
-				temp=temp.next;
-			}
-			node nextNode = new node(num);
-			nextNode.next=temp.next;
-			temp.next=nextNode;
-			return head;
-		}
-		public static node insertatiR(node head,int pos,int num) {
-			
-			
-			if(pos==0)
-			{
-				node nextNode = new node(num);
-				nextNode.next=head;
-				return nextNode;
-			}
-			node temp=insertatiR(head.next,pos-1, num);
-			head.next=temp;
-			return head;
-		}
-		public static node deleteati(node head,int pos) {
-			node temp=head;
-			for(int i=0;i<pos-1;i++)
-			{
-				temp=temp.next;
-			}
-			
-			temp.next=temp.next.next;
-			return head;
-		}
-		public static node deleteatiR(node head,int pos) {
+		return head;
+	}
 
-			if(pos==0)
-			{
-				return head.next;
-			}
-			node temp=deleteatiR(head.next,pos-1);
-			head.next=temp;
+
+	public static DoubleNode reverse2(Node<Integer> head) {
+		if (head == null || head.next == null) {
+			DoubleNode output = new DoubleNode(head, head);
+			return output;
+		}
+
+		DoubleNode output = reverse2(head.next);
+		output.tail.next = head;
+		head.next = null;
+		output.tail = head;
+		return output;
+	}
+
+	public static Node<Integer> reverse1(Node<Integer> head) {
+		if (head == null || head.next == null) {
 			return head;
 		}
-		//1 3 4 5 6 7 8 9 -1
-		public static node reverseR(node temp,node temp2)
-		{
-			if(temp2==null)
-			{
-				return temp;
-			}
-			node head=reverseR(temp2,temp2.next);
-					temp2.next=temp;
-					temp.next=null;
-			return head;
-			
+
+		Node<Integer> smallHead = reverse1(head.next);
+		Node<Integer> smallTail = smallHead;
+		while (smallTail.next != null) {
+			smallTail = smallTail.next;
 		}
-		public static node reversekgroup(node head,int k) {
-			if(head==null)
-			{
-				return null;
+		smallTail.next = head;
+		head.next = null;
+		return smallHead;
+	}
+
+	//	
+	public static Node<Integer> takeInput() {
+		Node<Integer> head = null;
+		Node<Integer> tail = null;
+		Scanner s = new Scanner(System.in);
+		int nextData = s.nextInt();
+		while (nextData != -1) {
+			Node<Integer> nextNode = new Node<>(nextData);
+			if (head == null) {
+				head = nextNode;
+				tail = nextNode;
+			} else {
+				tail.next = nextNode;
+				tail = nextNode;
 			}
-			node temp=head;
-			node prev=null;
-			node next=null;
-			int i=0;
-			while(i<k&&head!=null)
-			{
-				next=head.next;
-				head.next=prev;
-				prev=head;
-				head=next;
-				i++;
-			}
-			temp.next=reversekgroup(next,k);
-			return prev;
-		
+			nextData = s.nextInt();
 		}
-		public static void main(String[] args) {
-			node head = takeInput();
-			//print(head);
-			int num,pos;
-			Scanner s1 = new Scanner(System.in);
-			
-			print(head);
-//			System.out.println(length(head));
-//			num=s1.nextInt();
-//			pos=s1.nextInt();
-//			head=insertatiR(head,pos,num);
-//			print(head);
-//			deleteatiR( head, pos);
-//			print(head);
-			head=reverseR(head,head.next);
-			//head=reversekgroup(head, 3);
-			print(head);
-			System.out.println();
-			System.out.println();
+		return head;
+	}
+
+	public static<T> void print(Node<T> head) {
+		while (head != null) {
+			System.out.print(head.data + "-->");
+			head = head.next;
+		}
+		System.out.println();
+
+	}
+
+	public static void main(String[] args) {
+
+		Node<Integer> a = new Node<Integer>(10);
+
+
+		Node<String> f = new Node<String>("a");
+		Node<String> s = new Node<String>("b");
+		Node<String> t = new Node<String>("c");
+		f.next = s;
+		s.next = t;
+		print(f);
+
+
+		Node<Integer> head = takeInput();
+		print(head);
+		insertAtI(head, 2, 10);
+		print(head);
+
+		head = reverse3(head);
+		print(head);
+
+		head = bubbleSort(head);
+		print(head);
 	}
 
 }

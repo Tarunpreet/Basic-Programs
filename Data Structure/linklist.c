@@ -15,15 +15,17 @@ void insert(int x)
   temp -> next=head;
   head = temp;
 }
-void PrintAlternate(node* head)
+void PrintAlternate(struct node* head)
 {
-	if(head==null)
+	if(head==NULL)
 	{
 		return;
 	}
-	printf("%d\n",head->data);
+	if(head->next!=NULL)
+	{
 	PrintAlternate(head->next->next);
-
+    }
+  printf("%d\n",head->data);
 }
 // void print()
 // {

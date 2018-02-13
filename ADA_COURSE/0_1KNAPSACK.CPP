@@ -21,7 +21,7 @@ int MaxProfit(int *price,int* weight,int weight_bag,int n)
 		for(int j=1;j<weight_bag+1;j++)
 		{
 			int exc=0;
-        int inc=0;
+            int inc=0;
 			if(weight[i-1]<=j)
 		    {
 			inc=price[i-1]+arr[i-1][j-weight[i-1]];
